@@ -17,13 +17,28 @@
             //Create database
             var dbCtx = new MyDbCtx();
             dbCtx.SaveChanges();
+            //Add customers
             Customer.AddCustomers(dbCtx);
             dbCtx.SaveChanges();
+            //Add products
             Product.AddProducts(dbCtx);
+            //Add Orders and order rows
             AddOrders(dbCtx);
+
             //Run LINQ Printing method to show table
 
-            //Save changes to database
+            Console.WriteLine("Press 1 to Save and Quit program\n Press 2 to Clear table and Quit program");
+            var choice = Convert.ToInt32(Console.ReadLine());
+            switch(choice)
+            {
+                case 1:
+                    dbCtx.SaveChanges();
+                    break;
+                case 2:
+                    dbCtx.RemoveAll();
+                    break;
+            }
+            Environment.Exit(0);
         }
 
         public static void AddOrders(MyDbCtx dbCtx)
@@ -47,10 +62,16 @@
                 NumberOfProducts = 1,
                 ThisProduct = dbCtx.Products.First(p => p.ProductName.StartsWith("Linda"))
             };
-            dbCtx.Add(orderItem1);
-            dbCtx.Add(orderItem2);
+            //Add items to order and rows
+            //Then calculate each rows total price
+            order1.OrderRows.Add(orderItem1);
+            orderItem1.CalculateTotalRowPrice();
+            order1.OrderRows.Add(orderItem2);
+            orderItem2.CalculateTotalRowPrice();
+            //Calculate the total order value
+            order1.CalculateOrderValue();
+
             dbCtx.SaveChanges();
-            //Run CalculateTotalRow method in OrderRow.cs?
 
             var order2 = new CustomerOrder()
             {
@@ -72,19 +93,23 @@
                 ThisProduct = dbCtx.Products.First(x => x.ProductName.StartsWith("RoligARE"))
             };
 
-            //Run CalculateTotalRow method in OrderRow.cs?
-            dbCtx.Add(orderItem3);
-            dbCtx.Add(orderItem4);
+            order2.OrderRows.Add(orderItem3);
+            orderItem3.CalculateTotalRowPrice();
+            order2.OrderRows.Add(orderItem4);
+            orderItem4.CalculateTotalRowPrice();
+            order2.CalculateOrderValue();
+
             dbCtx.SaveChanges();
         }
-        
 
-    /* ADD WHEN READY FOR DBO 
-    -- Add Connection String property
-    -- I slutet skapa en databas, add migration och update
-    */
+
+        /* ADD WHEN READY FOR DBO 
+        -- Add Connection String property
+        -- I slutet skapa en databas, add migration och update
+        */
 
     }
+
 }
 
 

@@ -21,5 +21,14 @@ namespace Parprogrammering_1
                 optionsBuilder.UseSqlServer(""); //PUT DATABASE CONNECTIONSTRING HERE
             }
         }
+        //Remove all info from table
+        public void RemoveAll()
+        {
+            CustomerOrders.RemoveRange(CustomerOrders);
+            Customers.RemoveRange(Customers);
+            OrderRows.RemoveRange(OrderRows);
+            Products.RemoveRange(Products);
+            SaveChanges();
+        }
     }
 }
