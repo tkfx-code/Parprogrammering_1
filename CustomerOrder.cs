@@ -17,7 +17,7 @@ namespace Parprogrammering_1
 
         public CustomerOrder()
         {
-            CalculateOrderValue();
+            
         }
 
         //Calculate OrderValue by value of each OrderRow added together

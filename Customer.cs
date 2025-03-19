@@ -17,7 +17,7 @@ namespace Parprogrammering_1
 
         public Customer() 
         {
-            AddCustomer();
+            
         }
         public Customer(string firstName, string lastName, string address)
         {
@@ -27,11 +27,12 @@ namespace Parprogrammering_1
         }
 
         //Hard data to add
-        public void AddCustomer()
+        public static void AddCustomers(MyDbCtx ctx)
         {
-            var customer1 = new Customer() { FirstName = "Anna", LastName = "Bengtsson", Address = "Gata 101" };
-            var customer2 = new Customer() { FirstName = "Bengt", LastName = "Conradsson", Address = "Gata 103" };
-            var customer3 = new Customer() { FirstName = "Conny", LastName = "Andersson", Address = "Gata 411" };
+            ctx.Add(new Customer() { FirstName = "Anna", LastName = "Bengtsson", Address = "Gata 101" });
+            ctx.Add(new Customer() { FirstName = "Bengt", LastName = "Conradsson", Address = "Gata 103" });
+            ctx.Add(new Customer() { FirstName = "Conny", LastName = "Andersson", Address = "Gata 411" });
+            ctx.SaveChanges();
         }
         //Print customer
         public override string ToString()

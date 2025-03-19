@@ -17,14 +17,16 @@
             //Create database
             var dbCtx = new MyDbCtx();
             dbCtx.SaveChanges();
-            //Add Customers from AddCustomers() in Customer.cs
-            //Add Orders from AddOrders() method
+            Customer.AddCustomers(dbCtx);
+            dbCtx.SaveChanges();
+            Product.AddProducts(dbCtx);
+            AddOrders(dbCtx);
             //Run LINQ Printing method to show table
-            
+
             //Save changes to database
         }
 
-        public void AddOrders(var dbCtx)
+        public static void AddOrders(MyDbCtx dbCtx)
         {
             var order1 = new CustomerOrder()
             {
@@ -52,7 +54,7 @@
 
             var order2 = new CustomerOrder()
             {
-                ThisCustomer = dbCtx.Customer.First(x => x.FirstName == "Bengt")
+                ThisCustomer = dbCtx.Customers.First(x => x.FirstName == "Bengt")
             };
             dbCtx.Add(order2);
             dbCtx.SaveChanges();

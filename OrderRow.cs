@@ -20,7 +20,7 @@ namespace Parprogrammering_1
 
         public OrderRow()
         {
-            CalculateTotalRowPrice();
+            
         }
 
         public void CalculateTotalRowPrice()
