@@ -6,14 +6,28 @@ using System.Threading.Tasks;
 
 namespace Parprogrammering_1
 {
-    //Collect products into a row of an order, with how many products are ordered
-    //Connect OrderRows to an Order to be able to group together in dbo
+    //OrderRow connects to a full order, shows info about specific ordered item
+    //OPT: Clear OrderRowID After adding to order?
     internal class OrderRow
     {
         public int OrderRowId { get; set; }
         public Product? ThisProduct { get; set; }
         public CustomerOrder? ThisOrder { get; set; }
+        public double UnitPrice { get; set; }
         public int NumberOfProducts { get; set; }
+        public double TotalRowPrice { get; set; }
+
+
+        public OrderRow()
+        {
+            CalculateTotalRowPrice();
+        }
+
+        public void CalculateTotalRowPrice()
+        {
+            UnitPrice = ThisProduct.ProductPrice;
+            TotalRowPrice = UnitPrice*NumberOfProducts;
+        }
     }
 
 }

@@ -13,9 +13,27 @@ namespace Parprogrammering_1
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
-        public CustomerOrder? ThisCustomerOrder { get; set; }
+        public virtual List<CustomerOrder> ThisCustomerOrder { get; set; }
 
-        public Customer() {}
+        public Customer() 
+        {
+            AddCustomer();
+        }
+        public Customer(string firstName, string lastName, string address)
+        {
+            firstName = this.FirstName;
+            lastName = this.LastName;
+            lastName = this.Address;
+        }
+
+        //Hard data to add
+        public void AddCustomer()
+        {
+            var customer1 = new Customer() { FirstName = "Anna", LastName = "Bengtsson", Address = "Gata 101" };
+            var customer2 = new Customer() { FirstName = "Bengt", LastName = "Conradsson", Address = "Gata 103" };
+            var customer3 = new Customer() { FirstName = "Conny", LastName = "Andersson", Address = "Gata 411" };
+        }
+        //Print customer
         public override string ToString()
         {
             return $"Förnamn: {FirstName}\n" +
@@ -24,5 +42,6 @@ namespace Parprogrammering_1
         }
 
     }
-    //ToString method print this customers orders - Order ID, date and amount of products?
+    //ToString method print all orders from specific customer can be added here
+        //Order ID, date and amount of products?
 }
